@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 
 const CourseList = ({ courses ,setCourses , editingCourse, setEditingCrouse}) => {
    const { user } = useAuth();
-   const [formData, setFormData] = useState({ title: '', description: '', deadline: '' });
+   const [formData, setFormData] = useState({ courseID: '', coursename: '', date: '' });
 
    const [inputValue, setInputValue] = useState('');
 
@@ -12,15 +12,25 @@ const CourseList = ({ courses ,setCourses , editingCourse, setEditingCrouse}) =>
 
 
 
-const handleSubmit = async (e, courseId) => {
+const handleSubmit = async (e, courseId, cname) => {
   e.preventDefault();
   try {
-    const formDataWithId = { ...formData, title: courseId}; 
     
+    const formDataWithId = { ...formData, courseID: courseId,coursename: cname}; 
 
-    const response = await axiosInstance.post('/api/tasks', formDataWithId, {
+
+
+    const checkExist = await axiosInstance.get('/api/tasks',{
       headers: { Authorization: `Bearer ${user.token}` },
     });
+    const checkExistID = checkExist.data.map(task => task.courseID);
+    if (checkExistID.includes(courseId)) {
+      alert('Course already enrolled');
+    } else {
+      const response = await axiosInstance.post('/api/tasks', formDataWithId, {
+        headers: { Authorization: `Bearer ${user.token}` },
+      });
+    }
 
 
   } catch (error) {
@@ -35,7 +45,7 @@ return (
         <h2 className="font-bold">{course.cname}</h2>
         <p>{course.cdetail}</p>
 
-        <form onSubmit={(e) => handleSubmit(e, course._id)} className="bg-white p-6 shadow-md rounded mb-6">
+        <form onSubmit={(e) => handleSubmit(e, course._id, course.cname)} className="bg-white p-6 shadow-md rounded mb-6">
           <input type="hidden" value='aaaaaaa' onChange={(e) => setInputValue(e.target.value)} />
           <button type="submit">{editingCourse ? 'Update Button' : 'Add Button'}</button>
         </form>
