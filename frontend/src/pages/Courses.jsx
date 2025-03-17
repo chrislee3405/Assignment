@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import axiosInstance from '../axiosConfig';
 import CourseList from '../components/CourseList';
+
 import { useAuth } from '../context/AuthContext';
 
 const Courses = () => {
-  const [courses, setCourses] = useState([]);
   const { user } = useAuth();
+  const [courses, setCourses] = useState([]);
+  const [editingCourse, setEditingCourse] = useState(null);
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -24,10 +26,9 @@ const Courses = () => {
 
   return (
     <div className="container mx-auto p-6">
-      <p>123</p>
       
-      <CourseList courses={courses} />
-      <p>456</p>
+      <CourseList courses={courses}  setCourses={setCourses} editingCourse={editingCourse} setEditingCourse={setEditingCourse}/>
+
     </div>
   );
 };
