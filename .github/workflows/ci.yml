@@ -52,6 +52,8 @@ jobs:
     # Install dependencies for frontend
     - name: Install Frontend Dependencies
       working-directory: ./frontend
+      env:
+        CI: false
       run: |
         df -h
         sudo rm -rf ./build
@@ -65,7 +67,6 @@ jobs:
         MONGO_URI: ${{ secrets.MONGO_URI }}
         JWT_SECRET: ${{ secrets.JWT_SECRET }}
         PORT: ${{ secrets.PORT }}
-        CI: false
       working-directory: ./backend
       run: npm test
       
