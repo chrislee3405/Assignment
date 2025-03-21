@@ -65,8 +65,10 @@ jobs:
         MONGO_URI: ${{ secrets.MONGO_URI }}
         JWT_SECRET: ${{ secrets.JWT_SECRET }}
         PORT: ${{ secrets.PORT }}
+        CI: false
       working-directory: ./backend
       run: npm test
+      
 
 
     - run: npm ci
