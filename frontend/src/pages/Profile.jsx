@@ -7,6 +7,7 @@ const Profile = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    stuNu: '',
     university: '',
     address: '',
   });
@@ -23,6 +24,7 @@ const Profile = () => {
         setFormData({
           name: response.data.name,
           email: response.data.email,
+          stuNu: response.data.stuNu || '',
           university: response.data.university || '',
           address: response.data.address || '',
         });
@@ -64,6 +66,13 @@ const Profile = () => {
           placeholder="Name"
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+          className="w-full mb-4 p-2 border rounded"
+        />
+        <input
+          type="stuNu"
+          placeholder="Student Number"
+          value={formData.stuNu}
+          onChange={(e) => setFormData({ ...formData, stuNu: e.target.value })}
           className="w-full mb-4 p-2 border rounded"
         />
         <input
