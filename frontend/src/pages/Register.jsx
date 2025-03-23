@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useState , useEffect} from 'react';
+import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../axiosConfig';
 
 const Register = () => {
+  const { user } = useAuth();
   const [formData, setFormData] = useState({ name: '', email: '', password: '' });
   const navigate = useNavigate();
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,6 +19,8 @@ const Register = () => {
       alert('Registration failed. Please try again.');
     }
   };
+
+
 
   return (
     <div className="max-w-md mx-auto mt-20">

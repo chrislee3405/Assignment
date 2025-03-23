@@ -1,15 +1,24 @@
 import { useState, useEffect } from 'react';
-import axiosInstance from '../axiosConfig';
-import TaskForm from '../components/TaskForm';
-import TaskList from '../components/TaskList';
 import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../axiosConfig';
+import TaskList from '../components/TaskList';
+
+// import TaskForm from '../components/TaskForm';
 
 const Tasks = () => {
   const { user } = useAuth();
   const [tasks, setTasks] = useState([]);
   const [editingTask, setEditingTask] = useState(null);
+  const navigate = useNavigate();
+
 
   useEffect(() => {
+    if (!user) {
+      navigate('/');
+      return;
+    }
+
     const fetchTasks = async () => {
       try {
         const response = await axiosInstance.get('/api/tasks', {
@@ -22,7 +31,7 @@ const Tasks = () => {
     };
 
     fetchTasks();
-  }, [user]);
+  }, [user, navigate]);
 
   return (
     <div className="container mx-auto p-6">

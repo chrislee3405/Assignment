@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../axiosConfig';
 
 const Profile = () => {
@@ -12,8 +13,15 @@ const Profile = () => {
     address: '',
   });
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
+
+    if (!user) {
+      navigate('/');
+      return;
+    }
+
     // Fetch profile data from the backend
     const fetchProfile = async () => {
       setLoading(true);
@@ -36,7 +44,7 @@ const Profile = () => {
     };
 
     if (user) fetchProfile();
-  }, [user]);
+  }, [user, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
