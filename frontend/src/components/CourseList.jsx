@@ -15,11 +15,11 @@ const CourseList = ({ courses ,setCourses , editingCourse, setEditingCrouse}) =>
    const filteredCourses = selectedDay ? courses.filter(course => course.cweek === selectedDay) : courses;
    const navigate = useNavigate();
 
-const handleSubmit = async (e, courseId, cname, cweek) => {
+const handleSubmit = async (e, courseId, cname, cweek, cdate) => {
   e.preventDefault();
   try {
     
-    const formDataWithId = { ...formData, courseID: courseId,coursename: cname, coursewkd: cweek}; 
+    const formDataWithId = { ...formData, courseID: courseId,coursename: cname, coursewkd: cweek, date: cdate}; 
 
 
 
@@ -63,12 +63,26 @@ const handleSubmit = async (e, courseId, cname, cweek) => {
 return (
   <div>
 
-      <select value={selectedDay} onChange={(e) => setSelectedDay(e.target.value)}>
-        <option value="">All</option>
-        {weekList.map((day) => (
-          <option key={day} value={day}>{day}</option>
-        ))}
-      </select>
+<div className="mb-4">
+  <label className="block mb-2 font-bold">Weekdays:</label>
+  <div className="flex space-x-2">
+    <button 
+      onClick={() => setSelectedDay('')} 
+      className={`p-2 rounded ${selectedDay === '' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+    >
+      All
+    </button>
+    {weekList.map((day) => (
+      <button 
+        key={day} 
+        onClick={() => setSelectedDay(day)} 
+        className={`p-2 rounded ${selectedDay === day ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+      >
+        {day}
+      </button>
+    ))}
+  </div>
+</div>
     
 
 
@@ -77,11 +91,13 @@ return (
     {filteredCourses.map((course) => (
       <div key={course._id} className="bg-gray-100 p-4 mb-4 rounded shadow">
         <h2 className="font-bold">{course.cname}</h2>
-        <p>{course.cdetail}</p>
         <p>{course.cweek}</p>
-        <form onSubmit={(e) => handleSubmit(e, course._id, course.cname, course.cweek)} className="bg-white p-6 shadow-md rounded mb-6">
+        <p className="text-sm text-gray-500">Start Date: {new Date(course.cdate).toLocaleDateString()}</p>
+        <strong>Course Description: </strong><span>{course.cdetail}</span>
+        
+        <form onSubmit={(e) => handleSubmit(e, course._id, course.cname, course.cweek, course.cdate)} >
           <input type="hidden" value='aaaaaaa' onChange={(e) => setInputValue(e.target.value)} />
-          <button type="submit">{editingCourse ? 'Update Button' : 'Add Button'}</button>
+          <button type="submit" className="bg-green-500 text-white p-2 rounded mt-2">{editingCourse ? 'Update Button' : 'Enroll'}</button>
         </form>
 
         <div className="mt-2"></div>

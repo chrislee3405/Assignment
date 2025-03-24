@@ -67,47 +67,75 @@ const Profile = () => {
 
   return (
     <div className="max-w-md mx-auto mt-20">
-      <form onSubmit={handleSubmit} className="bg-white p-6 shadow-md rounded">
-        <h1 className="text-2xl font-bold mb-4 text-center">Your Profile</h1>
-        <input
-          type="text"
-          placeholder="Name"
-          value={formData.name}
-          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          className="w-full mb-4 p-2 border rounded"
-        />
-        <input
-          type="stuNu"
-          placeholder="Student Number"
-          value={formData.stuNu}
-          onChange={(e) => setFormData({ ...formData, stuNu: e.target.value })}
-          className="w-full mb-4 p-2 border rounded"
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-          className="w-full mb-4 p-2 border rounded"
-        />
-        <input
-          type="text"
-          placeholder="University"
-          value={formData.university}
-          onChange={(e) => setFormData({ ...formData, university: e.target.value })}
-          className="w-full mb-4 p-2 border rounded"
-        />
-        <input
-          type="text"
-          placeholder="Address"
-          value={formData.address}
-          onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-          className="w-full mb-4 p-2 border rounded"
-        />
-        <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded">
-          {loading ? 'Updating...' : 'Update Profile'}
-        </button>
-      </form>
+<form onSubmit={handleSubmit} className="bg-white p-6 shadow-md rounded">
+  <h1 className="text-2xl font-bold mb-4 text-center">Your Profile</h1>
+  
+  <table className="w-full">
+    <tbody>
+      <tr>
+        <td className="p-2"><label>Name:</label></td>
+        <td className="p-2">
+          <input
+            type="text"
+            value={formData.name}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+            className="w-full p-2 border rounded"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td className="p-2"><label>Student Number:</label></td>
+        <td className="p-2">
+          <input
+            type="text"
+            value={formData.stuNu}
+            onChange={(e) => 
+              setFormData({ ...formData, stuNu: e.target.value })
+            }
+            className="w-full p-2 border rounded"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td className="p-2"><label>Email:</label></td>
+        <td className="p-2">
+          <input
+            type="email"
+            value={formData.email}
+            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+            className="w-full p-2 border rounded"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td className="p-2"><label>University:</label></td>
+        <td className="p-2">
+          <input
+            type="text"
+            value={formData.university}
+            onChange={(e) => setFormData({ ...formData, university: e.target.value })}
+            className="w-full p-2 border rounded"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td className="p-2"><label>Address:</label></td>
+        <td className="p-2">
+          <input
+            type="text"
+            value={formData.address}
+            onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+            className="w-full p-2 border rounded"
+          />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded mt-4">
+    {loading ? 'Updating...' : 'Update Profile'}
+  </button>
+</form>
     </div>
   );
 };
