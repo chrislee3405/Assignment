@@ -12,12 +12,12 @@ const Navbar = () => {
 
   return (
     <nav className="bg-blue-600 text-white p-4 flex justify-between items-center">
-      <Link to="/" className="text-2xl font-bold">Your apps name testing</Link>
+      <Link to="/" className="text-2xl font-bold">Student Enrollment Website</Link>
       <div>
         {user ? (
           <>
-            <Link to="/courses" className="mr-4">Course</Link>
-            <Link to="/tasks" className="mr-4">CRUD</Link>
+            <Link to="/courses" className="mr-4">Courses</Link>
+            <Link to="/tasks" className="mr-4">Enrollment</Link>
             <Link to="/profile" className="mr-4">Profile</Link>
             <button
               onClick={handleLogout}
