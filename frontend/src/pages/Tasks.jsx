@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../axiosConfig';
 import TaskList from '../components/TaskList';
 
-// import TaskForm from '../components/TaskForm';
+import TaskForm from '../components/TaskForm';
 
 const Tasks = () => {
   const { user } = useAuth();
@@ -35,7 +35,7 @@ const Tasks = () => {
 
   return (
     <div className="container mx-auto p-6">
-      {/* <TaskForm tasks={tasks} setTasks={setTasks} editingTask={editingTask} setEditingTask={setEditingTask} /> */}
+      <TaskForm tasks={tasks} setTasks={setTasks} editingTask={editingTask} setEditingTask={setEditingTask} />
       <TaskList tasks={tasks} setTasks={setTasks}                           setEditingTask={setEditingTask} />
     </div>
   );

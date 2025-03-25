@@ -7,6 +7,7 @@ res.status(500).json({ message: error.message });
 }};
 
 const addTask = async (req,res) => {
+
     const { courseID, coursename, date } = req.body;
     try {
     const task = await Task.create({ userId: req.user.id, courseID, coursename, date });
@@ -16,23 +17,26 @@ const addTask = async (req,res) => {
     }
 };
 
-const updateTask = async (
-        req,
-        res) => {
-        const { title, description, completed, deadline } = req.body;
+const updateTask = async (req,res) => {
+        // ({ title: '', coname: '', cdate: '' , cremark: ''});
+        const { title, coname, cdate, cremark } = req.body;
         try {
         const task = await Task.findById(req.params.id);
         if (!task) return res.status(404).json({ message: 'Task not found' });
-        task.title = title || task.title;
-        task.description = description || task.description;
-        task.completed = completed ?? task.completed;
-        task.deadline = deadline || task.deadline;
+        task.courseID = title || task.courseID;
+        task.coursename = coname || task.coursename;
+        task.date = cdate || task.date;
+        task.remark = cremark || task.remark;
         const updatedTask = await task.save();
         res.json(updatedTask);
         } catch (error) {
         res.status(500).json({ message: error.message });
         }
 };
+
+
+
+
 
 const deleteTask = async ( req,res) => {
             try {

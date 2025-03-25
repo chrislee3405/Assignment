@@ -6,6 +6,7 @@ const taskSchema = new mongoose.Schema({
     courseID: { type: String, required: true },
     coursename: { type: String },
     date: { type: Date },
+    remark:{ type: String }
 });
 
 module.exports = mongoose.model('Task', taskSchema);
